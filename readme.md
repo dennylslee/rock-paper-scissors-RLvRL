@@ -73,6 +73,6 @@ From the above diagrams, we see that both players change their move strategy fro
 
 However, the more interesting question is then what causes the agent(s) to change strategy to move to another move type and how long they stay in that interim stead state? Is this change stochastic or is there something more spooky going on?  One explanation is that when one player is winning consistently, the other player is trying to find a way out via combination of exploration and utilizing the natural reward reinforcement of Q-learning.  The lossing player eventually breakthrough and fine a way out of its poor performance and become the new winning player - effectively causing a "role reversal".  And the cycle starts over again.  Now, how long the two players stay in that intermediate steady state, I conjecture, is simply a stochastic process. 
 
-[Pics8](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/p1vp2_moves.png)
+![Pics8](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/p1vp2_moves.png)
 
 
