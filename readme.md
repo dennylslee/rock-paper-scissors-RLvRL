@@ -2,7 +2,7 @@
 
 ##  Introduction
 
-This project is an envolution of earlier experimental project that plays an AI agent against a set of random number generation in a rock-paper-scissors game setting. The evolution is to peg two reinforcement learning agents against each other in the RPS game play.  And through this game play process, I try to understand better the underlying RL learning dynamics.   As per the base project, the agents are based on DDQN.  
+This project is an evolution of earlier experimental project that plays an AI agent against a set of random number generation in a rock-paper-scissors game setting. The evolution is to peg two reinforcement learning agents against each other in the RPS game play.  And through this game play process, I try to understand better the underlying RL learning dynamics.   As per the base project, the agents are based on DDQN.  
 
 You can find the reference to the base project [here](https://github.com/dennylslee/rock-paper-scissors-DeepRL)
 
@@ -12,7 +12,7 @@ The overall set up of the RPS game play are shown as follow.  The two RL agents 
 
 The only "variable" in this experiment is that the observed state space provided to the two agents are different. Player 1 will always observed the full state space of 9 dimensions.  These 9 dimensions are listed below. Player 2 will only observe a partial view of the overall state space (3 of the 9, 6 of the 9 dimensions were tested).  The intuition is that player 1 should be the stronger player since it has a wider breadth understanding of the environment (i.e. a more sophisticated worldview); whereas player 2 should be the weaker player since it has a limited view of the game state.
 
-[Pic1](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/1v1_architecture.png)
+![Pic1](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/1v1_architecture.png)
 
 
 ## Game state space
@@ -37,9 +37,9 @@ The observed results for the game play in which player 2 only have state visibil
 2. state 4, 5, 6 (i.e. player 2 only sees the trend indicator)
 3. state 7, 8, 9 (i.e. player 2 only sees the moving average rate values)
 
-[Pic2](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_first3state.png)
-[Pic3](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_mid3state.png)
-[Pic4](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_last3state.png)
+![Pic2](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_first3state.png)
+![Pic3](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_mid3state.png)
+![Pic4](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_last3state.png)
 
 ## Resutls (player 2 with partial visibilty of 6 states)
 
@@ -49,9 +49,9 @@ The observed results for the game play in which player 2 only have state visibil
 2. state 1, 2, 3, 7, 8, 9 (i.e. player 2 sees instantaneous status & moving average rate values)
 3. state 4, 5, 6, 7, 8, 9 (i.e. player 2 sees the trend indicators & the moving average rate values)
 
-[Pic5](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_first6state.png)
-[Pic6](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_first3last3state.png)
-[Pic7](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_last6state.png)
+![Pic5](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_first6state.png)
+![Pic6](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_first3last3state.png)
+![Pic7](https://github.com/dennylslee/rock-paper-scissors-RLvRL/blob/master/Figure_1_same_NN_last6state.png)
 
 ## Observations - surprise!
 
