@@ -211,22 +211,32 @@ def main():
 	# variables init
 	episodes, trial_len =  150, 200					# lenght of game play
 	cumReward, argmax = 0, 0						# init for intrumentation
-
 	steps, rateTrack, overallRateTrack = [], [], []
 	avgQmaxList, avgQ_futureList,avgQ_targetmaxList, avgTDtargetList = [], [], [], []
 	avgCumRewardList = []
 	p1Rate, p2Rate = [], []
 
+	# ---------------------- setup the state size for player 2 ------------------------
+	# control via the selector of which set of state you want player 2 toB have
+	player2_state = {"Single_move"	:  True, \
+					"Trend"			:  False, \
+					"Moving_avg"	:  True}
+	a, b, c, state_cnt = slice(0,0), slice(0,0), slice(0,0), 0
+	if player2_state["Single_move"]: a, state_cnt = slice(0,3), state_cnt + 3
+	if player2_state["Trend"]:		 b, state_cnt = slice(3,6), state_cnt + 3 
+	if player2_state["Moving_avg"]:	 c, state_cnt = slice(6,9), state_cnt + 3 
+
 	# declare the game play environment and AI agent
 	env = RPSenv()
 	dqn_player1 = DDQN(env = env, state_size = env.state.shape[1])
-	dqn_player2 = DDQN(env = env, state_size = 3)
+	dqn_player2 = DDQN(env = env, state_size = state_cnt)
 
 	# ------------------------------------------ start the game -----------------------------------------
 	print('STARTING THE GAME with %s episodes each with %s moves' % (episodes, trial_len), '\n')
 	for episode in range(episodes):
 		cur_state1 = env.reset().reshape(1,env.state.shape[1])   # reset and get initial state in Keras shape
-		cur_state2 = cur_state1[0][3:6].reshape(1,3)
+		#cur_state2 = cur_state1[0][3:].reshape(1,6)
+		cur_state2 = np.concatenate((cur_state1[0][a],cur_state1[0][b],cur_state1[0][c])).reshape(1,state_cnt)
 		cumReward = 0
 		for step in range(trial_len):
 			# Both agent take one action
@@ -244,7 +254,8 @@ def main():
 				reward1, reward2 = 0, 0
 			# WEAKEN player 2 perspective by giving it the first few elements in the state vector
 			new_state1 = new_state
-			new_state2 = new_state[0][3:6].reshape(1,3)    
+			#new_state2 = new_state[0][3:].reshape(1,6) 
+			new_state2 = np.concatenate((new_state[0][a],new_state[0][b],new_state[0][c])).reshape(1,state_cnt)   
 			# record the play into memory pool
 			dqn_player1.remember(cur_state1, action1, reward1, new_state1, done)
 			dqn_player2.remember(cur_state2, action2, reward2, new_state2, done)
@@ -312,13 +323,7 @@ def main():
 		plt.title('Player-1 TD target minus Q target from experience replay', loc='Left', weight='bold', \
 			color='Black', fontdict = {'fontsize' : 10})
 		rpsplot.plot(dqn_player1.TDtarget, color='blue')
-		
-		# plot the TDtarget
-		#rpsplot = fig.add_subplot(325)
-		#plt.title('Player-1 TD target from experience replay', loc='Left', weight='bold', color='Black', \
-		#	fontdict = {'fontsize' : 10})
-		#rpsplot.plot(dqn_player1.TDtargetdelta, color='blue')
-		
+				
 		# plot thte win rate
 		rpsplot = fig.add_subplot(323)
 		plt.title('Player-1 Per-Episode Win-Tie-Lost Rate', loc='Left', weight='bold', color='Black', \
@@ -350,12 +355,6 @@ def main():
 		rpsplot.plot([i[0] for i in p2Rate], color='orange')
 		rpsplot.plot([i[1] for i in p2Rate], color='red')
 		rpsplot.plot([i[2] for i in p2Rate], color='green')
-		
-		# plot the reward 
-		#rpsplot = fig.add_subplot(326)
-		#plt.title('Player-1 average Reward per Episode', loc='Left', weight='bold', color='Black', \
-		#	fontdict = {'fontsize' : 10})
-		#rpsplot.plot(avgCumRewardList, color='green')
 		
 		plt.show(block = False)
 	
