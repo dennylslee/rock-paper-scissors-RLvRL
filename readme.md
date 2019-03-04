@@ -6,7 +6,7 @@ This project is an evolution of earlier experimental project that plays an AI ag
 
 You can find the reference to the base project [here](https://github.com/dennylslee/rock-paper-scissors-DeepRL).
 
-## Evniornment set up
+## Environment set up
 
 The overall set up of the RPS game play are shown as follow.  The two RL agents are identitical in that it uses the same RL algorithm - in this case, it is the DDQN.  DDQN is chosen since this problem is a discrete action space problem and DDQN has incorporated much of the enhancements (many contributed by DeepMind) to Q-learning and is generally considered the state-of-the-art in the dynamics programming / Q-learning brench of RL.   Besides the RL algo choice, the policy network between the two agents are also identical in that it has the same neural network architecture, the same size of network and the same set of hyperparameter settings. Furthermore, action space and reward system are also identical between the two agents.  
 
